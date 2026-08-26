@@ -11,7 +11,7 @@
  * * que lo componen.
  */
 
-import { COLORS } from '../helpers/colors.ts';
+import { COLORS } from "../helpers/colors.ts";
 
 //! Tarea: crear un QueryBuilder para construir consultas SQL
 /**
@@ -50,38 +50,69 @@ class QueryBuilder {
   }
 
   select(...fields: string[]): QueryBuilder {
-    throw new Error('Method not implemented.');
+    fields.map((f) => this.fields.push(f));
+
+    return this;
   }
 
   where(condition: string): QueryBuilder {
-    throw new Error('Method not implemented.');
+    this.conditions.push(condition);
+
+    return this;
   }
 
-  orderBy(field: string, direction: 'ASC' | 'DESC' = 'ASC'): QueryBuilder {
-    throw new Error('Method not implemented.');
+  orderBy(field: string, direction: "ASC" | "DESC" = "ASC"): QueryBuilder {
+    this.orderFields.push(`${field} ${direction}`);
+
+    return this;
   }
 
   limit(count: number): QueryBuilder {
-    throw new Error('Method not implemented.');
+    this.limitCount = count;
+
+    return this;
   }
 
   execute(): string {
     // Select id, name, email from users where age > 18 and country = 'Cri' order by name ASC limit 10;
-    throw new Error('Method not implemented.');
+    const f = this.fields.length > 0 ? this.fields.join(", ") : "";
+    const cond =
+      this.conditions.length > 0
+        ? "where " + this.conditions.join(" and ")
+        : "";
+    const ord =
+      this.orderFields.length > 0
+        ? "order by " + this.orderFields.join(", ")
+        : "";
+    const lim = (this.limitCount ?? 0 > 0) ? `limit ${this.limitCount}` : "";
+
+    return `select ${f} from ${this.table} ${cond} ${ord} ${lim}`;
   }
 }
 
 function main() {
-  const usersQuery = new QueryBuilder('users')
-    .select('id', 'name', 'email')
-    .where('age > 18')
+  const usersQuery = new QueryBuilder("users")
+    .select("id", "name", "email")
+    .where("age > 18")
     .where("country = 'Cri'") // Esto debe de hacer una condición AND
-    .orderBy('name', 'ASC')
+    .orderBy("name", "ASC")
     .limit(10)
     .execute();
 
-  console.log('%cConsulta:\n', COLORS.red);
+  console.log("%cConsulta:\n", COLORS.red);
   console.log(usersQuery);
+
+  const usersQuery2 = new QueryBuilder("roles")
+    .select("id", "user_id", "rol")
+    .where("user_id > 18")
+    .where('rol = "admin"')
+    .orderBy("rol", "DESC")
+    .orderBy("user_id", "ASC")
+    .limit(10)
+    .execute();
+
+  console.log("\n\n%cConsulta 2:\n", COLORS.green);
+  console.log(usersQuery2);
 }
 
 main();
