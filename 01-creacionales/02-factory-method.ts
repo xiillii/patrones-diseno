@@ -19,7 +19,7 @@ interface Hamburger {
   prepare(): void;
 }
 
-class ChickedHamburger implements Hamburger {
+class ChickenHamburger implements Hamburger {
   prepare(): void {
     console.log("Preparando una hamburgesa de %cpollo", COLORS.yellow);
   }
@@ -31,14 +31,52 @@ class BeefHamburger implements Hamburger {
   }
 }
 
+abstract class Restaurant {
+  abstract createHamburger(): Hamburger;
+
+  orderHamburger(): void {
+    const hamburger = this.createHamburger();
+
+    hamburger.prepare();
+  }
+}
+
+class ChickenRestaurant extends Restaurant {
+  override createHamburger(): Hamburger {
+    return new ChickenHamburger();
+  }
+}
+
+class BeefRestaurant extends Restaurant {
+  override createHamburger(): Hamburger {
+    return new BeefHamburger();
+  }
+}
+
 function main() {
-  let hP: Hamburger = new ChickedHamburger();
+  let restaurant: Restaurant;
 
-  hP.prepare();
+  console.log(
+    "¿Tipo de hamburgesa, [%cP%c]ollo, [%cR%c]es",
+    COLORS.yellow,
+    COLORS.reset,
+    COLORS.brown,
+    COLORS.reset,
+  );
+  const burgerType = prompt("-");
 
-  hP = new BeefHamburger();
+  switch (burgerType?.toLocaleLowerCase()) {
+    case "p":
+      restaurant = new ChickenRestaurant();
+      break;
+    case "r":
+      restaurant = new BeefRestaurant();
+      break;
+    default:
+      throw new Error("Opción no válida");
+  }
 
-  hP.prepare();
+  restaurant.orderHamburger();
 }
 
 main();
