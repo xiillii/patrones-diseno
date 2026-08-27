@@ -12,8 +12,65 @@
  * https://refactoring.guru/es/design-patterns/abstract-factory
  */
 
+import { COLORS } from '../helpers/colors.ts';
+
 /**
  *  El propósito del Abstract Factory es crear familias de objetos relacionados
  *  (en este caso, hamburguesas y bebidas) sin especificar las clases concretas
  *  de cada uno de esos objetos en el código principal.
  */
+
+interface Hamburger {
+  prepare(): void;
+}
+
+interface Drink {
+  pour(): void;
+}
+
+class ChickenHamburger implements Hamburger {
+  prepare(): void {
+    console.log('Preparando hamburguesa de %cPollo', COLORS.yellow);
+  }
+}
+
+class BeefHamburger implements Hamburger {
+  prepare(): void {
+    console.log('Preparando hamburguesa de %cRes', COLORS.brown);
+  }
+}
+
+class WaterDrink implements Drink {
+  pour(): void {
+    console.log('Sirviendo un vaso de %cagua', COLORS.blue);
+  }
+}
+
+class SodaDrink implements Drink {
+  pour(): void {
+    console.log('Sirviendo un vaso de %csoda', COLORS.red);
+  }
+}
+
+interface RestaurantFactory {
+  createHamburger(): Hamburger;
+  createDrink(): Drink;
+}
+
+class FastFoodRestaurantFactory implements RestaurantFactory {
+  createHamburger(): Hamburger {
+    return new BeefHamburger();
+  }
+  createDrink(): Drink {
+    return new SodaDrink();
+  }
+}
+
+class HealthyRestaurantFactory implements RestaurantFactory {
+  createHamburger(): Hamburger {
+    return new ChickenHamburger();
+  }
+  createDrink(): Drink {
+    return new WaterDrink();
+  }
+}
