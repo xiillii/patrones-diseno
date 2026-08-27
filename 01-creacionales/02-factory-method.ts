@@ -31,6 +31,12 @@ class BeefHamburger implements Hamburger {
   }
 }
 
+class BeanHamburger implements Hamburger {
+  prepare(): void {
+    console.log("Preparando una hamburgesa de %cfrijól", COLORS.red);
+  }
+}
+
 abstract class Restaurant {
   abstract createHamburger(): Hamburger;
 
@@ -53,14 +59,22 @@ class BeefRestaurant extends Restaurant {
   }
 }
 
+class BeanRestaurant extends Restaurant {
+  override createHamburger(): Hamburger {
+    return new BeanHamburger();
+  }
+}
+
 function main() {
   let restaurant: Restaurant;
 
   console.log(
-    "¿Tipo de hamburgesa, [%cP%c]ollo, [%cR%c]es",
+    "¿Tipo de hamburgesa, [%cP%c]ollo, [%cR%c]es, [%cF%c]rijól",
     COLORS.yellow,
     COLORS.reset,
     COLORS.brown,
+    COLORS.reset,
+    COLORS.red,
     COLORS.reset,
   );
   const burgerType = prompt("-");
@@ -71,6 +85,9 @@ function main() {
       break;
     case "r":
       restaurant = new BeefRestaurant();
+      break;
+    case "f":
+      restaurant = new BeanRestaurant();
       break;
     default:
       throw new Error("Opción no válida");
