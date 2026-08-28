@@ -3,10 +3,10 @@
 
  * Es un patrón de diseño creacional que nos permite copiar objetos existentes sin hacer
  * que el código dependa de sus clases.
- * 
- * * Es útil cuando queremos duplicar el contenido, 
+ *
+ * * Es útil cuando queremos duplicar el contenido,
  * * el título y el autor de un documento, por ejemplo o cualquier objeto complejo.
- * 
+ *
  * https://refactoring.guru/es/design-patterns/prototype
  */
 
@@ -17,20 +17,24 @@ class Pokemon {
   attacks: string[];
 
   constructor(name: string, type: string, level: number, attacks: string[]) {
-    throw new Error('Method not implemented.');
+    this.name = name;
+    this.type = type;
+    this.level = level;
+    this.attacks = [...attacks];
   }
 
   // Método para clonar el Pokémon
   clone(): Pokemon {
     // Los ataques deben de evitar pasarse por referencia, es decir, no deben de ser el mismo arreglo.
     // Completar: Debe devolver un nuevo Pokémon con los mismos atributos
+    return new Pokemon(this.name, this.type, this.level, this.attacks);
   }
 
   displayInfo(): void {
     console.log(
-      `Nombre: ${this.name}\nTipo: ${this.type}\nNivel: ${
-        this.level
-      }\nAtaques: ${this.attacks.join(', ')}`
+      `Nombre: ${this.name}\nTipo: ${this.type}\nNivel: ${this.level}\nAtaques: ${
+        this.attacks.join(', ')
+      }`,
     );
   }
 }
@@ -49,3 +53,21 @@ class Pokemon {
 
 // basePokemon.displayInfo(); // Aquí no debe de aparecer "Lanzallamas"
 // clone1.displayInfo();
+
+function main(): void {
+  const pokemon = new Pokemon('Pikachu', 'Electro', 123, [
+    'Electrocuta',
+    'Pica',
+  ]);
+
+  const poke2 = pokemon.clone();
+  poke2.name = 'Charmeleon';
+  poke2.level = 16;
+  poke2.attacks.push('Lanzallamas');
+
+  pokemon.displayInfo();
+
+  poke2.displayInfo();
+}
+
+main();
