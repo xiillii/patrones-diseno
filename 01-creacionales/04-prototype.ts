@@ -35,6 +35,11 @@ function main() {
 
   console.log({ doc1 });
   doc1.displayInfo();
+
+  const doc2 = { ...doc1 };
+  doc2.title = 'Nueva cotización';
+
+  console.log({ doc2 });
 }
 
 main();
