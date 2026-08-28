@@ -21,12 +21,12 @@ class DragonBalls {
   }
 
   public static getInstance(): DragonBalls {
-    if (!this.instance) {
-      this.instance = new DragonBalls();
+    if (!DragonBalls.instance) {
+      DragonBalls.instance = new DragonBalls();
       console.log('%cLas pelotas del Dragón han sido creadas!', COLORS.orange);
     }
 
-    return this.instance;
+    return DragonBalls.instance;
   }
 
   collectBall(): void {
