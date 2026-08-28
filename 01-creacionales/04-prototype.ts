@@ -21,6 +21,10 @@ class Document {
     this.author = author;
   }
 
+  clone(): Document {
+    return new Document(this.title, this.content, this.author);
+  }
+
   displayInfo() {
     console.log(`
         Title: ${this.title}
@@ -36,10 +40,11 @@ function main() {
   console.log({ doc1 });
   doc1.displayInfo();
 
-  const doc2 = { ...doc1 };
+  const doc2 = doc1.clone();
   doc2.title = 'Nueva cotización';
 
   console.log({ doc2 });
+  doc2.displayInfo();
 }
 
 main();
