@@ -19,11 +19,11 @@ class DatabaseConnection {
 
   // Método estático para obtener la instancia única
   public static getInstance(): DatabaseConnection {
-    if (!this.instance) {
-      this.instance = new DatabaseConnection();
+    if (!DatabaseConnection.instance) {
+      DatabaseConnection.instance = new DatabaseConnection();
     }
 
-    return this.instance;
+    return DatabaseConnection.instance;
   }
 
   // Método para conectar a la base de datos
