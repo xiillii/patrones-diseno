@@ -53,23 +53,23 @@ abstract class Notification {
 // 4. Clases Concretas de Notificaciones
 
 class AlertNotification extends Notification {
-  notify(message: string): void {
+  override notify(message: string): void {
     console.log("\n%cNotificación de Alerta:", COLORS.red);
     this.channel.send(message);
   }
 
-  setChannel(channel: NotificationChannel): void {
+  override setChannel(channel: NotificationChannel): void {
     this.channel = channel;
   }
 }
 
 class ReminderNotification extends Notification {
-  notify(message: string): void {
+  override notify(message: string): void {
     console.log("\n%cNotificación de Recordatorio:", COLORS.blue);
     this.channel.send(message);
   }
 
-  setChannel(channel: NotificationChannel): void {
+  override setChannel(channel: NotificationChannel): void {
     this.channel = channel;
   }
 }
