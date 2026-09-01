@@ -56,7 +56,7 @@ class MenuCategory implements MenuComponent {
   //TODO: Sobrecarga de operadores - Item puede ser MenuComponent o un arreglo de MenuComponent
   add(item: MenuComponent | MenuComponent[]): void {
     if (Array.isArray(item)) {
-      item.forEach((nItem) => this.items.push(nItem));
+      this.items.push(...item);
     } else {
       this.items.push(item);
     }
