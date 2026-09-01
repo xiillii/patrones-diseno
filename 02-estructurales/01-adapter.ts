@@ -1,3 +1,5 @@
+import { LocalLogger } from "./adapter-files/local-logger.ts";
+
 /**
  * ! Patrón Adapter
  *  Permite que objetos con interfaces incompatibles trabajen juntos, también es muy
@@ -10,3 +12,8 @@
  *
  * https://refactoring.guru/es/design-patterns/adapter
  */
+const logger = new LocalLogger("01-adapter.ts");
+
+logger.writeLog("Mensaje de un log normal");
+logger.writeWarning("Una alterna normal, warning");
+logger.writeError("Una alterna normal, error");
