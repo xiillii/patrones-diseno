@@ -13,3 +13,33 @@
  * https://refactoring.guru/es/design-patterns/composite
  *
  */
+
+interface FileSystemComponent {
+  showDetails(indent?: string): void;
+}
+
+class File implements FileSystemComponent {
+  private name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  showDetails(indent?: string): void {
+    console.log(`${indent}- Archivo: ${this.name}`);
+  }
+}
+
+class Folder implements FileSystemComponent {
+  private name: string;
+  private contents: FileSystemComponent[] = [];
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  showDetails(indent?: string): void {
+    console.log(`${indent}+ Carpeta: ${this.name}`);
+    this.contents.forEach((component) => component.showDetails(indent + " "));
+  }
+}
