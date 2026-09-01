@@ -1,4 +1,5 @@
-import { LocalLogger } from "./adapter-files/local-logger.ts";
+// import { LocalLogger } from "./adapter-files/local-logger.ts";
+import { DenoLoggerAdaptar } from "./adapter-files/logger-adapter.ts";
 
 /**
  * ! Patrón Adapter
@@ -12,7 +13,9 @@ import { LocalLogger } from "./adapter-files/local-logger.ts";
  *
  * https://refactoring.guru/es/design-patterns/adapter
  */
-const logger = new LocalLogger("01-adapter.ts");
+
+// const logger = new LocalLogger("01-adapter.ts");
+const logger = new DenoLoggerAdaptar("01-adapter.ts");
 
 logger.writeLog("Mensaje de un log normal");
 logger.writeWarning("Una alterna normal, warning");
