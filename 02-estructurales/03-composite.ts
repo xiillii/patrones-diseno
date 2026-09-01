@@ -38,8 +38,33 @@ class Folder implements FileSystemComponent {
     this.name = name;
   }
 
+  add(component: FileSystemComponent) {
+    this.contents.push(component);
+  }
+
   showDetails(indent?: string): void {
     console.log(`${indent}+ Carpeta: ${this.name}`);
     this.contents.forEach((component) => component.showDetails(indent + " "));
   }
 }
+
+function main() {
+  const file1 = new File("archivo1.txt");
+  const file2 = new File("archivo2.txt");
+  const file3 = new File("archivo3.txt");
+  const file4 = new File("archivo4.txt");
+
+  const folder1 = new Folder("Carpeta1");
+  folder1.add(file1);
+  folder1.add(file2);
+
+  const folder2 = new Folder("Carpeta2");
+  folder2.add(file3);
+  folder2.add(file4);
+
+  folder1.add(folder2);
+
+  folder1.showDetails("");
+}
+
+main();
