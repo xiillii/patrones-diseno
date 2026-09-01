@@ -70,6 +70,10 @@ function main(): void {
   warrior.setAbility(new AxeAttack());
 
   warrior.performAbility();
+
+  const mage = new Mage(new MagicSpell());
+
+  mage.performAbility();
 }
 
 main();
