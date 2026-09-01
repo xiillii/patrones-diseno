@@ -62,3 +62,15 @@ class SMSDecorator extends NotificationDecorator {
     this.sendSMS(message);
   }
 }
+
+function main() {
+  let notification: Notification = new BasicNotification();
+
+  // decorando la notificación
+  notification = new EmailDecorator(notification);
+  notification = new SMSDecorator(notification);
+
+  notification.send("Alerta de sistema");
+}
+
+main();
