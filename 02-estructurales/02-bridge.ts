@@ -22,6 +22,12 @@ class SwordAttack implements Ability {
   }
 }
 
+class AxeAttack implements Ability {
+  use(): void {
+    console.log("Ataca con una %chacha ferozmente", COLORS.orange);
+  }
+}
+
 class MagicSpell implements Ability {
   use(): void {
     console.log("Lanza un hechizo %cmágico poderoso", COLORS.green);
@@ -58,6 +64,10 @@ class Mage extends Character {
 
 function main(): void {
   const warrior = new Warrior(new SwordAttack());
+
+  warrior.performAbility();
+
+  warrior.setAbility(new AxeAttack());
 
   warrior.performAbility();
 }
