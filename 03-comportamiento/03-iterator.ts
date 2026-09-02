@@ -9,6 +9,8 @@
  * https://refactoring.guru/es/design-patterns/iterator
  */
 
+import { COLORS } from '../helpers/colors.ts';
+
 interface Iterator<T> {
   next(): T | null;
   hasNext(): boolean;
@@ -59,7 +61,7 @@ class PokemonIterator implements Iterator<Pokemon> {
 
   next(): Pokemon | null {
     if (this.hasNext()) {
-      return this.collection.getPokemonAt(++this.position);
+      return this.collection.getPokemonAt(this.position++);
     }
 
     return null;
@@ -71,3 +73,29 @@ class PokemonIterator implements Iterator<Pokemon> {
     return this.collection.getPokemonAt(this.position);
   }
 }
+
+function main() {
+  const pokedex = new PokemonCollection();
+  pokedex.addPokemon(new Pokemon('Pikachu', 'Eléctrico'));
+  pokedex.addPokemon(new Pokemon('Charmander', 'Fuego'));
+  pokedex.addPokemon(new Pokemon('Squirtle', 'Agua'));
+  pokedex.addPokemon(new Pokemon('Balbasur', 'Planta'));
+  pokedex.addPokemon(new Pokemon('Jigglypuff', 'Normal'));
+
+  const iterator = pokedex.createIterator();
+
+  while (iterator.hasNext()) {
+    const pokemon = iterator.next();
+
+    if (pokemon) {
+      console.log(
+        `Pokémon: %c${pokemon.name}%c, Tipo: %c${pokemon.type}`,
+        COLORS.cyan,
+        COLORS.reset,
+        COLORS.orange,
+      );
+    }
+  }
+}
+
+main();
