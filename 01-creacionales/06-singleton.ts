@@ -23,35 +23,39 @@ class DragonBalls {
   public static getInstance(): DragonBalls {
     if (!DragonBalls.instance) {
       DragonBalls.instance = new DragonBalls();
-      console.log('%cLas pelotas del Dragón han sido creadas!', COLORS.green);
+      console.log('%cLas pelotas del Dragón han sido creadas!', COLORS.orange);
     }
 
     return DragonBalls.instance;
   }
 
   collectBall(): void {
-    if (this.ballsCollected < 7) {
-      this.ballsCollected++;
+    if (this.ballsCollected >= 7) {
       console.log(
-        `Pelota recolectada. Total de esferas: ${this.ballsCollected}`
+        '%cYa se han recolectado las 7 esferas del Dragón! Invoca a Shenlong',
+        COLORS.violet,
       );
       return;
     }
-
+    this.ballsCollected++;
     console.log(
-      'Ya se han recolectado las 7 esferas del Dragón! Invoca a Shenlong'
+      `%cEsfera del Dragón recolectada.\n%cTotal de esferas: %c${this.ballsCollected}`,
+      COLORS.red,
+      COLORS.cyan,
+      COLORS.pink,
     );
   }
 
   summonShenlong() {
     if (this.ballsCollected === 7) {
-      console.log('Shenlong ha sido invocado, Pide tu deseo!');
+      console.log('%cShenlong ha sido invocado, pide tu deseo!', COLORS.pink);
       this.ballsCollected = 0;
       return;
     }
 
     console.log(
-      `\nAún faltan ${7 - this.ballsCollected} pelotas para invocar a Shenlong`
+      `%cAún faltan ${7 - this.ballsCollected} esferas para invocar a Shenlong`,
+      COLORS.red,
     );
   }
 }
@@ -66,13 +70,13 @@ function main() {
   gokuDragonBalls.summonShenlong();
 
   const vegetaDragonBalls = DragonBalls.getInstance();
+
   vegetaDragonBalls.collectBall();
   vegetaDragonBalls.collectBall();
   vegetaDragonBalls.collectBall();
   vegetaDragonBalls.collectBall();
 
   gokuDragonBalls.summonShenlong();
-
   vegetaDragonBalls.summonShenlong();
 }
 

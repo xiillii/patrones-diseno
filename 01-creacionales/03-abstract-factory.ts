@@ -36,19 +36,19 @@ class ChickenHamburger implements Hamburger {
 
 class BeefHamburger implements Hamburger {
   prepare(): void {
-    console.log('Preparando hamburguesa de %cRes', COLORS.red);
+    console.log('Preparando hamburguesa de %cRes', COLORS.brown);
   }
 }
 
-class Water implements Drink {
+class WaterDrink implements Drink {
   pour(): void {
     console.log('Sirviendo un vaso de %cagua', COLORS.blue);
   }
 }
 
-class Soda implements Drink {
+class SodaDrink implements Drink {
   pour(): void {
-    console.log('Sirviendo un vaso de %cgaseosa', COLORS.pink);
+    console.log('Sirviendo un vaso de %csoda', COLORS.red);
   }
 }
 
@@ -61,9 +61,8 @@ class FastFoodRestaurantFactory implements RestaurantFactory {
   createHamburger(): Hamburger {
     return new BeefHamburger();
   }
-
   createDrink(): Drink {
-    return new Soda();
+    return new SodaDrink();
   }
 }
 
@@ -71,9 +70,8 @@ class HealthyRestaurantFactory implements RestaurantFactory {
   createHamburger(): Hamburger {
     return new ChickenHamburger();
   }
-
   createDrink(): Drink {
-    return new Water();
+    return new WaterDrink();
   }
 }
 

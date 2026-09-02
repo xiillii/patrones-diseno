@@ -4,7 +4,6 @@
  * En estos casos, se puede hacer una copia del objeto y modificar la copia.
  *
  *  * Es útil para mantener un historial de estados en aplicaciones interactivas.
- *
  */
 
 import { COLORS } from '../helpers/colors.ts';
@@ -17,38 +16,36 @@ class CodeEditorState {
   constructor(
     content: string,
     cursorPosition: number,
-    unsavedChanges: boolean
+    unsavedChanges: boolean,
   ) {
     this.content = content;
     this.cursorPosition = cursorPosition;
     this.unsavedChanges = unsavedChanges;
   }
 
-  copyWith({
-    content,
-    cursorPosition,
-    unsavedChanges,
-  }: Partial<CodeEditorState>): CodeEditorState {
+  copyWith(
+    { content, cursorPosition, unsavedChanges }: Partial<CodeEditorState>,
+  ): CodeEditorState {
     return new CodeEditorState(
       content ?? this.content,
       cursorPosition ?? this.cursorPosition,
-      unsavedChanges ?? this.unsavedChanges
+      unsavedChanges ?? this.unsavedChanges,
     );
   }
 
   displayState() {
     console.log('\n%cEstado del editor:', COLORS.green);
     console.log(`
-        Contenido: ${this.content}
-        Cursor Pos: ${this.cursorPosition}
+        Content: ${this.content}
+        Cursor position: ${this.cursorPosition}
         Unsaved changes: ${this.unsavedChanges}
-    `);
+        `);
   }
 }
 
 class CodeEditorHistory {
   private history: CodeEditorState[] = [];
-  private currentIndex: number = -1; // 0,1,2,3,4,5,6
+  private currentIndex: number = -1;
 
   save(state: CodeEditorState): void {
     if (this.currentIndex < this.history.length - 1) {
@@ -60,12 +57,11 @@ class CodeEditorHistory {
   }
 
   undo(): CodeEditorState | null {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      return this.history[this.currentIndex];
+    if (this.currentIndex < 1) {
+      return null;
     }
-
-    return null;
+    this.currentIndex--;
+    return this.history[this.currentIndex];
   }
 
   redo(): CodeEditorState | null {
@@ -74,11 +70,11 @@ class CodeEditorHistory {
       return this.history[this.currentIndex];
     }
 
-    return null; // 0,1,2,3,4,5
+    return null;
   }
 }
 
-function main() {
+function main(): void {
   const history = new CodeEditorHistory();
   let editorState = new CodeEditorState("console.log('Hola Mundo');", 2, false);
 
@@ -88,25 +84,31 @@ function main() {
   editorState.displayState();
 
   editorState = editorState.copyWith({
-    content: "console.log('Hola Mundo'); \nconsole.log('Nueva línea');",
+    content: "console.log('Hola mundo'); \nconsole.log('Nueva línea');",
     cursorPosition: 3,
     unsavedChanges: true,
   });
+
   history.save(editorState);
 
-  console.log('\n%cDespués del primer cambio', COLORS.blue);
+  console.log('%cEstado siguiente', COLORS.cyan);
   editorState.displayState();
 
-  console.log('\n%cDespués de mover el cursor', COLORS.blue);
-  editorState = editorState.copyWith({ cursorPosition: 5 });
+  editorState = editorState.copyWith({
+    cursorPosition: 1,
+    unsavedChanges: false,
+  });
+
   history.save(editorState);
+
+  console.log('%cEstado siguiente', COLORS.red);
   editorState.displayState();
 
-  console.log('\n%cDespués del Undo', COLORS.blue);
+  console.log('%cDespues de Undo', COLORS.pink);
   editorState = history.undo()!;
   editorState.displayState();
 
-  console.log('\n%cDespués del Redo', COLORS.blue);
+  console.log('%cDespues de Redo', COLORS.pink);
   editorState = history.redo()!;
   editorState.displayState();
 }

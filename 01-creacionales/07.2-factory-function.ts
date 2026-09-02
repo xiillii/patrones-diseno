@@ -5,7 +5,6 @@
  *
  * * Es útil cuando necesitamos crear objetos o funciones de manera dinámica,
  * * es decir, en tiempo de ejecución y no en tiempo de compilación.
- *
  */
 
 //! Salida esperada
@@ -14,6 +13,7 @@
 //* [WARNING:2025-10-21:07] El uso de memoria está alto.
 //* [ERROR:2025-10-21:07] Error de conexión a la base de datos.
 
+import { error, warn } from 'node:console';
 import { COLORS } from '../helpers/colors.ts';
 
 function formatDate(date: Date): string {
@@ -33,24 +33,20 @@ type LogLevel = 'info' | 'warn' | 'error';
 function createLogger(level: LogLevel) {
   // Retorna una función que recibe el "message" como argumento
   // Completar: implementar el logger con formato y color para cada nivel
-  return (message: string) => {
-    const timestamp = formatDate(new Date());
-    const logColor = {
-      info: COLORS.white,
+  return function (message: string) {
+    const messages = {
+      info: `[%cINFO: ${formatDate(new Date())}%c] ${message}`,
+      warn: `[%cWARNING: ${formatDate(new Date())}%c] ${message}`,
+      error: `[%cERROR: ${formatDate(new Date())}%c] ${message}`,
+    };
+
+    const colors = {
+      info: COLORS.blue,
       warn: COLORS.yellow,
       error: COLORS.red,
     };
 
-    const prefix = {
-      info: 'INFO',
-      warn: 'WARNING',
-      error: 'ERROR',
-    };
-
-    console.log(
-      `%c[${prefix[level]}: ${timestamp}] ${message}`,
-      logColor[level]
-    );
+    return console.log(messages[level], colors[level], COLORS.reset);
   };
 }
 

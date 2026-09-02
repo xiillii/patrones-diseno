@@ -1,5 +1,36 @@
 {
-  "cSpell.words": [
-    "paypal"
-  ]
+    // Enable Deno extension for this workspace
+    "deno.enable": true,
+    "deno.lint": true,
+    // Enable Auto-Save
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    // Enable Format on Save
+    "editor.formatOnSave": true,
+    // Set Deno as default formatter for JS/TS/JSON
+    "[typescript]": {
+        "editor.defaultFormatter": "denoland.vscode-deno"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "denoland.vscode-deno"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "denoland.vscode-deno"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "denoland.vscode-deno"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "denoland.vscode-deno"
+    },
+    // Set Prettier for other file types
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }

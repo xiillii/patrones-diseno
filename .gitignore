@@ -1,6 +1,28 @@
+# Deno / Node dependencies (if using npm packages)
+node_modules/
+vendor/
 
+# Deno cache & build output
+.deno/
+dist/
+out/
 
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+
+# Operating System files
 .DS_Store
+Thumbs.db
 
-node_modules
+# VS Code directory (keep settings.json shared if team agrees, ignore workspace state)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
 
+# Logs and coverage
+*.log
+coverage/

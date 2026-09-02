@@ -4,14 +4,13 @@
  * En estos casos, se puede hacer una copia del objeto y modificar la copia.
  *
  *  * Es útil para mantener un historial de estados en aplicaciones interactivas.
- *
  */
 
 /**
- 1.	Completen el método copyWith en la clase Player para que permita 
+ 1.	Completen el método copyWith en la clase Player para que permita
  crear una copia con cambios en name, score o level.
- 
- 2.	Usen el código cliente para probar el funcionamiento de copyWith, 
+
+ 2.	Usen el código cliente para probar el funcionamiento de copyWith,
  haciendo cambios en el puntaje, nivel y nombre del jugador.
  */
 
@@ -29,7 +28,7 @@ class Player {
   readonly score: number;
   readonly level: number;
 
-  constructor({ level, name, score }: PlayerProps) {
+  constructor(name: string, score: number, level: number) {
     this.name = name;
     this.score = score;
     this.level = level;
@@ -37,11 +36,11 @@ class Player {
 
   // Método copyWith para crear una copia modificada del jugador
   copyWith({ name, score, level }: Partial<Player>): Player {
-    return new Player({
-      level: level ?? this.level,
-      name: name ?? this.name,
-      score: score ?? this.score,
-    });
+    return new Player(
+      name ?? this.name,
+      score ?? this.score,
+      level ?? this.level,
+    );
   }
 
   displayState(): void {

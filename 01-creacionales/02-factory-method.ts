@@ -13,7 +13,7 @@
  *
  */
 
-import { COLORS } from '../helpers/colors.ts';
+import { COLORS } from "../helpers/colors.ts";
 
 interface Hamburger {
   prepare(): void;
@@ -21,27 +21,28 @@ interface Hamburger {
 
 class ChickenHamburger implements Hamburger {
   prepare(): void {
-    console.log('Preparando una hamburguesa de %cpollo', COLORS.yellow);
+    console.log("Preparando una hamburgesa de %cpollo", COLORS.yellow);
   }
 }
 
 class BeefHamburger implements Hamburger {
   prepare(): void {
-    console.log('Preparando una hamburguesa de %cres', COLORS.brown);
+    console.log("Preparando una hamburgesa de %cres", COLORS.brown);
   }
 }
 
 class BeanHamburger implements Hamburger {
   prepare(): void {
-    console.log('Preparando una hamburguesa de %cfrijol', COLORS.orange);
+    console.log("Preparando una hamburgesa de %cfrijól", COLORS.red);
   }
 }
 
 abstract class Restaurant {
-  protected abstract createHamburger(): Hamburger;
+  abstract createHamburger(): Hamburger;
 
   orderHamburger(): void {
     const hamburger = this.createHamburger();
+
     hamburger.prepare();
   }
 }
@@ -67,25 +68,29 @@ class BeanRestaurant extends Restaurant {
 function main() {
   let restaurant: Restaurant;
 
-  const burgerType = prompt(
-    '¿Qué tipo de hamburguesa quieres? ( chicken/beef/bean )'
+  console.log(
+    "¿Tipo de hamburgesa, [%cP%c]ollo, [%cR%c]es, [%cF%c]rijól",
+    COLORS.yellow,
+    COLORS.reset,
+    COLORS.brown,
+    COLORS.reset,
+    COLORS.red,
+    COLORS.reset,
   );
+  const burgerType = prompt("-");
 
-  switch (burgerType) {
-    case 'chicken':
+  switch (burgerType?.toLocaleLowerCase()) {
+    case "p":
       restaurant = new ChickenRestaurant();
       break;
-
-    case 'beef':
+    case "r":
       restaurant = new BeefRestaurant();
       break;
-
-    case 'bean':
+    case "f":
       restaurant = new BeanRestaurant();
       break;
-
     default:
-      throw new Error('Opción no válida');
+      throw new Error("Opción no válida");
   }
 
   restaurant.orderHamburger();

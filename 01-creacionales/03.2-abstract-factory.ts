@@ -43,25 +43,25 @@ interface Engine {
 
 class ElectricCar implements Vehicle {
   assemble(): void {
-    console.log('Ensamblando un auto %celéctrico', COLORS.blue);
+    console.log('%cEnsamblando un auto eléctrico', COLORS.pink);
   }
 }
 
 class GasCar implements Vehicle {
   assemble(): void {
-    console.log('Ensamblando un auto de %ccombustión', COLORS.brown);
+    console.log('%cEnsamblando un auto de combustión', COLORS.yellow);
   }
 }
 
 class ElectricEngine implements Engine {
   start(): void {
-    console.log('Arrancando motor %celéctrico', COLORS.blue);
+    console.log('%cArrancando motor eléctrico', COLORS.orange);
   }
 }
 
-class GasEngine implements Engine {
+class GasEngine {
   start(): void {
-    console.log('Arrancando motor de %ccombustión', COLORS.brown);
+    console.log('%cArrancando motor de combustion', COLORS.violet);
   }
 }
 
@@ -77,7 +77,6 @@ class ElectricVehicleFactory implements VehicleFactory {
   createVehicle(): Vehicle {
     return new ElectricCar();
   }
-
   createEngine(): Engine {
     return new ElectricEngine();
   }
@@ -90,7 +89,6 @@ class GasVehicleFactory implements VehicleFactory {
   createEngine(): Engine {
     return new GasEngine();
   }
-  // Implementación de los métodos createVehicle y createEngine
 }
 
 // 5. Código Cliente
