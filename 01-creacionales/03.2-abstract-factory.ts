@@ -73,7 +73,6 @@ interface VehicleFactory {
 }
 
 // 4. Clases Concretas de Fábricas
-
 class ElectricVehicleFactory implements VehicleFactory {
   createVehicle(): Vehicle {
     return new ElectricCar();

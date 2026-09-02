@@ -54,6 +54,7 @@ function main() {
   console.log('Son iguales:', db1 === db2); // Debería mostrar true
 
   db1.disconnect(); // Debería cerrar la conexión
+  db2.disconnect();
 
   db2.connect(); // Ahora debería conectar de nuevo, ya que se cerró la anterior
 }

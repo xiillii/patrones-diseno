@@ -16,6 +16,12 @@
 
 import { COLORS } from '../helpers/colors.ts';
 
+interface PlayerProps {
+  name: string;
+  score: number;
+  level: number;
+}
+
 // 1. Clase Player inmutable
 class Player {
   readonly name: string;
@@ -47,7 +53,11 @@ class Player {
 // 2. Código Cliente para probar
 function main() {
   // Crear jugador inicial
-  let player = new Player('Carlos', 0, 1);
+  let player = new Player({
+    level: 1,
+    name: 'Carlos',
+    score: 0,
+  });
   console.log('Estado inicial:');
   player.displayState();
 

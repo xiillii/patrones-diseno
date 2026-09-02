@@ -10,11 +10,13 @@
  * https://refactoring.guru/es/design-patterns/prototype
  */
 
+import { COLORS } from '../helpers/colors.ts';
+
 class Pokemon {
-  name: string;
-  type: string;
-  level: number;
-  attacks: string[];
+  // name: string;
+  // type: string;
+  // level: number;
+  // attacks: string[];
 
   constructor(name: string, type: string, level: number, attacks: string[]) {
     this.name = name;
