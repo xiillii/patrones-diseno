@@ -15,17 +15,17 @@
  */
 
 /**
- * !Objetivo: 
- * Implementar el patrón Template Method para simular un sistema de limpieza 
- * de diferentes tipos de habitaciones 
- * (por ejemplo, una habitación de hotel y una sala de conferencias). 
- * 
- * Debes diseñar una clase base que defina el flujo general de limpieza 
- * y subclases que implementen pasos específicos dependiendo del tipo 
+ * !Objetivo:
+ * Implementar el patrón Template Method para simular un sistema de limpieza
+ * de diferentes tipos de habitaciones
+ * (por ejemplo, una habitación de hotel y una sala de conferencias).
+ *
+ * Debes diseñar una clase base que defina el flujo general de limpieza
+ * y subclases que implementen pasos específicos dependiendo del tipo
  * de habitación.
- * 
- * 
- * 
+ *
+ *
+ *
  * ! Descripción del Ejercicio
   El proceso de limpieza general incluye los siguientes pasos:
     1.	Entrar a la habitación: Abrir la puerta y entrar.
@@ -55,7 +55,7 @@ abstract class RoomCleaning {
 
   // Pasos comunes
   private enterRoom(): void {
-    console.log('Entrando a la habitación...');
+    ~~~~~console.log('Entrando a la habitación...');
   }
 
   private collectTrash(): void {
@@ -71,26 +71,37 @@ abstract class RoomCleaning {
   }
 
   // Método abstracto para limpieza específica
-  // TODO: Implementar el método specificCleaning en las subclases
-  // protected abstract? ambas?
+  protected abstract specificCleaning(): void;
 }
 
 // Subclase - HotelRoomCleaning
 class HotelRoomCleaning extends RoomCleaning {
-  // TODO: Implementar método específico
-  // Mensaje: 'Haciendo las camas y reponiendo artículos de baño.'
+  protected override specificCleaning(): void {
+    console.log(
+      '%cHaciendo las camas y reponiendo artículos de baño.',
+      COLORS.cyan,
+    );
+  }
 }
 
 // Subclase - ConferenceRoomCleaning
 class ConferenceRoomCleaning extends RoomCleaning {
-  // TODO: Implementar método específico
-  // Mensaje: 'Limpiando mesas y organizando sillas.'
+  protected override specificCleaning(): void {
+    console.log(
+      '%cLimpiando mesas y organizando sillas.',
+      COLORS.blue,
+    );
+  }
 }
 
 // Subclase - OfficeCleaning
 class OfficeCleaning extends RoomCleaning {
-  // TODO: Implementar método específico
-  // Mensaje: 'Limpiando escritorios y organizando documentos.'
+  protected override specificCleaning(): void {
+    console.log(
+      '%cLimpiando escritorios y organizando documentos.',
+      COLORS.pink,
+    );
+  }
 }
 
 // Código Cliente
