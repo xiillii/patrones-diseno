@@ -14,6 +14,8 @@
  * https://refactoring.guru/es/design-patterns/template-method
  */
 
+import { COLORS } from '../helpers/colors.ts';
+
 /**
  * Contexto: Vamos a implementar un sistema que permite preparar
  * diferentes bebidas calientes, como café y té.
@@ -26,3 +28,54 @@
  * ya que define un esqueleto general del algoritmo en una clase base
  * y delega los detalles específicos a las subclases.
  */
+
+abstract class HotBeverage {
+  prepare(): void {
+    this.boilWater();
+    this.addMainIngredient();
+    this.pourInCup();
+    this.addCondiments();
+  }
+
+  private boilWater(): void {
+    console.log('%cHirviendo el agua...', COLORS.blue);
+  }
+
+  private pourInCup(): void {
+    console.log('%cSirviendo en la taza...', COLORS.white);
+  }
+
+  protected abstract addMainIngredient(): void;
+
+  protected abstract addCondiments(): void;
+}
+
+class Tea extends HotBeverage {
+  protected override addMainIngredient(): void {
+    console.log('%cAñadiendo una bolsa de té', COLORS.green);
+  }
+  protected override addCondiments(): void {
+    console.log('%cAñadiendo miel y limón', COLORS.orange);
+  }
+}
+
+class Coffee extends HotBeverage {
+  protected override addMainIngredient(): void {
+    console.log('%cAñadiendo café molido', COLORS.brown);
+  }
+  protected override addCondiments(): void {
+    console.log('%cAñadiendo azúcar y leche', COLORS.pink);
+  }
+}
+
+function main() {
+  console.log('**** Preparando el té ****');
+  const tea = new Tea();
+  tea.prepare();
+
+  console.log('**** Preparando el café ****');
+  const coffee = new Coffee();
+  coffee.prepare();
+}
+
+main();
