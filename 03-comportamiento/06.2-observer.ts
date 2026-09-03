@@ -49,13 +49,12 @@ class WeatherStation {
     console.log(`\nClima actualizado: %c${weatherData}`, COLORS.blue);
 
     this.weatherData = weatherData;
-    this.observers.forEach((o) => o.update(this.weatherData));
+    this.notifyObservers();
   }
 
   // Notificar a todos los Observers
   private notifyObservers(): void {
-    // TODO: implementar método
-    throw new Error('Method not implemented.');
+    this.observers.forEach((o) => o.update(this.weatherData));
   }
 }
 
